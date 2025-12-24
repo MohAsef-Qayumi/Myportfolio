@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Portfolio | MERN Stack Developer",
   description: "Full-stack developer specializing in MERN stack, Machine Learning, AI, and Java applications. Creating innovative solutions with modern technologies.",
   keywords: ["MERN Stack", "React", "Node.js", "MongoDB", "Machine Learning", "AI", "Java", "Full Stack Developer"],
-  authors: [{ name: "Your Name" }],
+  authors: [{ name: "Mohammad Asef Qayumi" }],
   openGraph: {
     title: "Portfolio | MERN Stack Developer",
     description: "Full-stack developer specializing in MERN stack, Machine Learning, AI, and Java applications.",
