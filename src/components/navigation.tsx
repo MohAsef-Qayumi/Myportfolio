@@ -41,7 +41,7 @@ export function Navigation() {
             transition={{ duration: 0.2 }}
           >
             <a href="#home" className="text-2xl font-bold gradient-text">
-              Portfolio
+              Moh.Asef
             </a>
           </motion.div>
 
