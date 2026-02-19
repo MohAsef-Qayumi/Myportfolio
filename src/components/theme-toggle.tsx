@@ -3,9 +3,21 @@
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "./theme-provider"
 import { motion } from "framer-motion"
+import { useState, useEffect } from "react"
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return (
+      <div className="p-2 w-9 h-9" /> // Placeholder to prevent layout shift
+    )
+  }
 
   return (
     <motion.button
