@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ChevronDown, Download, Mail, Github, Linkedin, Twitter, Target } from "lucide-react"
+import { ChevronDown, Download, Mail, Github, Linkedin, Twitter,  } from "lucide-react"
 import { useState, useEffect } from "react"
 import * as React from "react"
 import Image from "next/image"
@@ -386,7 +386,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <span className="text-gray-900 dark:text-white">Hi, I'm </span>
+              <span className="text-gray-900 dark:text-white">Hi, I m </span>
               <span className="gradient-text">Moh.Asef</span>
             </motion.h1>
             

@@ -64,8 +64,6 @@ export function Projects() {
     }
   ]
 
-  const categories = ["All", "Full-Stack", "ML/AI", "Java/Enterprise", "Full-Stack + AI"]
-
   return (
     <section id="projects" className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Background Elements */}
@@ -413,7 +411,7 @@ export function Projects() {
           viewport={{ once: true }}
         >
           <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
-            Interested in working together? Let's discuss your project!
+            Interested in working together? Lets discuss your project!
           </p>
           <motion.a
             href="#contact"
