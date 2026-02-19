@@ -147,17 +147,17 @@ export function About() {
             </h3>
             <div className="space-y-4 text-lg text-gray-600 dark:text-gray-400">
               <p>
-                I'm a dedicated full-stack developer with over 3 years of experience creating 
+                I m a dedicated full-stack developer with over 3 years of experience creating 
                 innovative digital solutions. My journey in technology started with a curiosity 
                 for building things that make a difference.
               </p>
               <p>
-                Specializing in the MERN stack (MongoDB, Express.js, React, Node.js), I've 
+                Specializing in the MERN stack (MongoDB, Express.js, React, Node.js), I have 
                 developed a deep understanding of modern web architecture and user experience design.
               </p>
               <p>
                 My passion extends beyond web development into the exciting world of Machine Learning 
-                and Artificial Intelligence, where I've worked on projects ranging from predictive 
+                and Artificial Intelligence, where I have worked on projects ranging from predictive 
                 analytics to natural language processing.
               </p>
               <p>
