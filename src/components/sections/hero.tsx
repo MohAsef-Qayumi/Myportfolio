@@ -416,21 +416,23 @@ export function Hero() {
               and AI-powered experiences. Specializing in full-stack development with modern technologies.
             </motion.p>
 
-            {/* CTA Buttons */}
+             {/* CTA Buttons */}
             <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-12"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1 }}
             >
-              <motion.button
+              <motion.a
+                href="./resume.pdf"
+                download="Moh-Asef-Resume.pdf"
                 className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Download className="w-5 h-5" />
                 Download Resume
-              </motion.button>
+              </motion.a>
               
               <motion.button
                 onClick={scrollToAbout}
@@ -442,7 +444,6 @@ export function Hero() {
                 Get In Touch
               </motion.button>
             </motion.div>
-
             {/* Social Links */}
             <motion.div
               className="flex justify-center lg:justify-start space-x-6"
