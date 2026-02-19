@@ -263,7 +263,7 @@ export function Contact() {
             Get In Touch
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Ready to start a project or just want to chat? I'd love to hear from
+            Ready to start a project or just want to chat? I would love to hear from
             you!
           </p>
         </motion.div>
@@ -277,10 +277,10 @@ export function Contact() {
             viewport={{ once: true }}
           >
             <h3 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
-              Let's Connect
+              Lets Connect
             </h3>
             <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-              I'm always interested in new opportunities and exciting projects.
+              I m always interested in new opportunities and exciting projects.
               Whether you have a question or just want to say hi, feel free to
               reach out!
             </p>
@@ -364,7 +364,7 @@ export function Contact() {
                     Message Sent!
                   </h4>
                   <p className="text-gray-600 dark:text-gray-400">
-                    Thank you for reaching out. I'll get back to you soon!
+                    Thank you for reaching out. I will get back to you soon!
                   </p>
                 </motion.div>
               ) : (
