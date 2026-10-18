@@ -2,85 +2,45 @@
 
 import * as React from "react"
 
-type Theme = "dark" | "light" | "system"
+type Theme = "light" | "dark"
 
-type ThemeProviderProps = {
-  children: React.ReactNode
-  defaultTheme?: Theme
-  storageKey?: string
-}
+const STORAGE_KEY = "theme"
 
-type ThemeProviderState = {
+// Inlined in <head> so the correct class is set before first paint.
+export const themeScript = `(function(){try{var t=localStorage.getItem("${STORAGE_KEY}");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.classList.toggle("dark",t==="dark")}catch(e){}})()`
+
+type ThemeContextValue = {
   theme: Theme
-  setTheme: (theme: Theme) => void
+  toggle: () => void
 }
 
-const initialState: ThemeProviderState = {
-  theme: "system",
-  setTheme: () => null,
-}
+const ThemeContext = React.createContext<ThemeContextValue | null>(null)
 
-const ThemeProviderContext = React.createContext<ThemeProviderState>(initialState)
-
-export function ThemeProvider({
-  children,
-  defaultTheme = "system",
-  storageKey = "vite-ui-theme",
-  ...props
-}: ThemeProviderProps) {
-  const [theme, setTheme] = React.useState<Theme>(defaultTheme)
-  const [mounted, setMounted] = React.useState(false)
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = React.useState<Theme>("light")
 
   React.useEffect(() => {
-    setMounted(true)
-    const storedTheme = localStorage?.getItem(storageKey) as Theme
-    if (storedTheme) {
-      setTheme(storedTheme)
-    }
-  }, [storageKey])
+    setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light")
+  }, [])
 
-  React.useEffect(() => {
-    if (!mounted) return
-
-    const root = window.document.documentElement
-
-    root.classList.remove("light", "dark")
-
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light"
-
-      root.classList.add(systemTheme)
-      return
-    }
-
-    root.classList.add(theme)
-  }, [theme, mounted])
-
-  const value = {
-    theme,
-    setTheme: (theme: Theme) => {
-      if (mounted) {
-        localStorage?.setItem(storageKey, theme)
+  const toggle = React.useCallback(() => {
+    setTheme((current) => {
+      const next = current === "dark" ? "light" : "dark"
+      document.documentElement.classList.toggle("dark", next === "dark")
+      try {
+        localStorage.setItem(STORAGE_KEY, next)
+      } catch {
+        // Storage can be unavailable (private mode); the toggle still works for this visit.
       }
-      setTheme(theme)
-    },
-  }
+      return next
+    })
+  }, [])
 
-  return (
-    <ThemeProviderContext.Provider {...props} value={value}>
-      {children}
-    </ThemeProviderContext.Provider>
-  )
+  return <ThemeContext.Provider value={{ theme, toggle }}>{children}</ThemeContext.Provider>
 }
 
-export const useTheme = () => {
-  const context = React.useContext(ThemeProviderContext)
-
-  if (context === undefined)
-    throw new Error("useTheme must be used within a ThemeProvider")
-
+export function useTheme() {
+  const context = React.useContext(ThemeContext)
+  if (!context) throw new Error("useTheme must be used within a ThemeProvider")
   return context
-} 
+}
