@@ -108,6 +108,24 @@ export type Project = {
 // Ordered by relevance. Add `repo` / `live` links as soon as they are public.
 export const projects: Project[] = [
   {
+    title: "Sehat — Offline-first Clinic Records",
+    summary: "Patient records, visits, prescriptions and a daily queue for small clinics — fully usable without internet.",
+    problem:
+      "Clinics in Afghanistan and Pakistan lose records to paper and to web apps that stop working when the internet or power drops.",
+    highlights: [
+      "Local-first: every screen reads and writes IndexedDB, then syncs in the background",
+      "Field-level conflict resolution with hybrid logical clocks — concurrent offline edits both survive",
+      "Ordered sync cursor in Postgres using advisory locks, so no change is ever skipped",
+      "Installable PWA that opens and navigates offline; English, Dari and Pashto with RTL",
+      "Tested with simulated offline devices syncing through the real server code",
+    ],
+    stack: ["Next.js", "TypeScript", "PostgreSQL", "Drizzle", "Dexie", "Vitest"],
+    status: "shipped",
+    year: "2026",
+    repo: "https://github.com/MohAsef-Qayumi/sehat",
+    live: "https://sehat-git-main-mohammad-asefs-projects.vercel.app",
+  },
+  {
     title: "Bookstore Commerce",
     summary: "Full-stack e-commerce platform for an online bookstore.",
     problem:
