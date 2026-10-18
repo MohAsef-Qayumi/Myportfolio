@@ -67,6 +67,12 @@ export function Contact() {
               </dd>
             </div>
             <div>
+              <dt className="eyebrow mb-1">Location</dt>
+              <dd>
+                {profile.location} <span className="text-muted">· from {profile.hometown}</span>
+              </dd>
+            </div>
+            <div>
               <dt className="eyebrow mb-1">Elsewhere</dt>
               <dd className="flex gap-5">
                 {[
