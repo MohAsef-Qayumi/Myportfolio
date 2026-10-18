@@ -1,118 +1,79 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { ThemeToggle } from "./theme-toggle"
+import { useEffect, useState } from "react"
 import { Menu, X } from "lucide-react"
-import { useState } from "react"
+import { ThemeToggle } from "./theme-toggle"
+import { profile } from "@/data/profile"
 
-const navItems = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Projects", href: "#projects" },
-  { name: "Experience", href: "#experience" },
-  { name: "Contact", href: "#contact" },
+const links = [
+  { label: "About", href: "#about" },
+  { label: "Work", href: "#projects" },
+  { label: "Experience", href: "#experience" },
+  { label: "Contact", href: "#contact" },
 ]
 
 export function Navigation() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
-    }
-    setIsOpen(false)
-  }
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
 
   return (
-    <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-white/20 dark:border-white/10"
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-colors ${
+        scrolled || open ? "border-b border-line bg-bg/85 backdrop-blur" : "border-b border-transparent"
+      }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <motion.div
-            className="flex-shrink-0"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
-          >
-            <a href="#home" className="text-2xl font-bold gradient-text">
-              Moh.Asef
+      <nav className="container flex h-16 items-center justify-between">
+        <a href="#top" className="font-mono text-sm font-medium tracking-tight">
+          {profile.shortName.toLowerCase().replace(" ", ".")}
+        </a>
+
+        <div className="hidden items-center gap-8 md:flex">
+          {links.map((link) => (
+            <a key={link.href} href={link.href} className="text-sm text-muted transition-colors hover:text-fg">
+              {link.label}
             </a>
-          </motion.div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              {navItems.map((item, index) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    scrollToSection(item.href)
-                  }}
-                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  whileHover={{ y: -2 }}
-                >
-                  {item.name}
-                </motion.a>
-              ))}
-            </div>
-          </div>
-
-          {/* Theme Toggle and Mobile Menu Button */}
-          <div className="flex items-center space-x-4">
-            <ThemeToggle />
-            
-            {/* Mobile menu button */}
-            <motion.button
-              className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-              onClick={() => setIsOpen(!isOpen)}
-              whileTap={{ scale: 0.95 }}
-            >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </motion.button>
-          </div>
+          ))}
+          <a href={profile.resume} target="_blank" rel="noopener" className="text-sm text-muted transition-colors hover:text-fg">
+            Résumé
+          </a>
+          <ThemeToggle />
         </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <motion.div
-            className="md:hidden"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
+        <div className="flex items-center gap-1 md:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            className="grid h-8 w-8 place-items-center rounded-md text-muted hover:text-fg"
           >
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-white/20 dark:border-white/10">
-              {navItems.map((item, index) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    scrollToSection(item.href)
-                  }}
-                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                >
-                  {item.name}
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </div>
-    </motion.nav>
+            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
+        </div>
+      </nav>
+
+      {open && (
+        <div className="container pb-4 md:hidden">
+          {[...links, { label: "Résumé", href: profile.resume }].map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              className="block border-t border-line py-3 text-sm text-muted hover:text-fg"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      )}
+    </header>
   )
-} 
+}
