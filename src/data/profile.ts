@@ -159,6 +159,6 @@ export const skills: { group: string; items: string[] }[] = [
   { group: "Backend", items: ["Node.js", "Express", "Spring", "Hibernate", "REST APIs"] },
   { group: "Data", items: ["MongoDB", "PostgreSQL", "Firebase / Firestore"] },
   { group: "Mobile", items: ["Flutter", "Firebase Auth", "Push notifications"] },
-  { group: "ML", items: ["scikit-learn", "pandas", "Streamlit", "TensorFlow (learning)"] },
+  { group: "ML", items: ["scikit-learn", "pandas", "Streamlit", "TensorFlow"] },
   { group: "Tooling", items: ["Git", "AWS", "Vercel", "Postman", "Figma"] },
 ]
