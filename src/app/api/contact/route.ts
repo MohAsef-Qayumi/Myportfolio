@@ -1,75 +1,80 @@
-import { Resend } from "resend";
-import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend"
+import { NextRequest, NextResponse } from "next/server"
 
-const resend = new Resend(process.env.RESEND_API);
+const LIMITS = { name: 100, email: 200, subject: 200, message: 5000 } as const
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+const escapeHtml = (value: string) =>
+  value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+
+type Payload = Record<keyof typeof LIMITS, string>
+
+function parse(body: unknown): Payload | string {
+  if (!body || typeof body !== "object") return "Invalid request."
+  const input = body as Record<string, unknown>
+  const out = {} as Payload
+
+  for (const key of Object.keys(LIMITS) as (keyof typeof LIMITS)[]) {
+    const value = typeof input[key] === "string" ? (input[key] as string).trim() : ""
+    if (!value) return "All fields are required."
+    if (value.length > LIMITS[key]) return `${key[0].toUpperCase()}${key.slice(1)} is too long.`
+    out[key] = value
+  }
+
+  if (!EMAIL_RE.test(out.email)) return "Please enter a valid email address."
+  return out
+}
 
 export async function POST(req: NextRequest) {
+  const apiKey = process.env.RESEND_API
+  const receiverEmail = process.env.EMAIL_REC
+  if (!apiKey || !receiverEmail) {
+    console.error("Contact form is not configured: missing RESEND_API or EMAIL_REC.")
+    return NextResponse.json({ error: "Contact form is temporarily unavailable." }, { status: 500 })
+  }
+
+  const parsed = parse(await req.json().catch(() => null))
+  if (typeof parsed === "string") {
+    return NextResponse.json({ error: parsed }, { status: 400 })
+  }
+
+  const name = escapeHtml(parsed.name)
+  const email = escapeHtml(parsed.email)
+  const subject = escapeHtml(parsed.subject)
+  const message = escapeHtml(parsed.message)
+
   try {
-    const { name, email, subject, message } = await req.json();
-
-    if (!name || !email || !subject || !message) {
-      return NextResponse.json(
-        { error: "All fields are required." },
-        { status: 400 }
-      );
-    }
-
-    const receiverEmail = process.env.EMAIL_REC;
-    if (!receiverEmail) {
-      return NextResponse.json(
-        { error: "Receiver email is not configured." },
-        { status: 500 }
-      );
-    }
-
-    const { data, error } = await resend.emails.send({
-      from: "onboarding@resend.dev",
+    const { data, error } = await new Resend(apiKey).emails.send({
+      from: "Portfolio <onboarding@resend.dev>",
       to: receiverEmail,
-      replyTo: email,
-      subject: `[Portfolio] ${subject}`,
+      replyTo: parsed.email,
+      subject: `[Portfolio] ${parsed.subject.replace(/[\r\n]+/g, " ")}`,
+      text: `From: ${parsed.name} <${parsed.email}>\n\n${parsed.message}`,
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
-          <h2 style="color: #4f46e5; border-bottom: 2px solid #4f46e5; padding-bottom: 10px;">
-            New Message from Portfolio
-          </h2>
-          <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
-            <tr>
-              <td style="padding: 8px 0; font-weight: bold; color: #374151; width: 100px;">Name:</td>
-              <td style="padding: 8px 0; color: #6b7280;">${name}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; font-weight: bold; color: #374151;">Email:</td>
-              <td style="padding: 8px 0; color: #6b7280;">
-                <a href="mailto:${email}" style="color: #4f46e5;">${email}</a>
-              </td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; font-weight: bold; color: #374151;">Subject:</td>
-              <td style="padding: 8px 0; color: #6b7280;">${subject}</td>
-            </tr>
-          </table>
-          <div style="background: #f9fafb; padding: 16px; border-radius: 6px; margin-top: 10px;">
-            <p style="font-weight: bold; color: #374151; margin: 0 0 8px;">Message:</p>
-            <p style="color: #6b7280; margin: 0; white-space: pre-wrap;">${message}</p>
-          </div>
-          <p style="color: #9ca3af; font-size: 12px; margin-top: 20px; text-align: center;">
-            This email was sent from your portfolio contact form.
+        <div style="font-family: -apple-system, Segoe UI, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; color: #171717;">
+          <p style="margin: 0 0 4px; font-size: 12px; color: #737373; text-transform: uppercase; letter-spacing: .08em;">New message</p>
+          <h2 style="margin: 0 0 20px; font-size: 18px;">${subject}</h2>
+          <p style="margin: 0 0 20px; font-size: 14px;">
+            <strong>${name}</strong> &lt;<a href="mailto:${email}" style="color: #0d6e5f;">${email}</a>&gt;
           </p>
+          <div style="border-top: 1px solid #e5e5e2; padding-top: 16px; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${message}</div>
         </div>
       `,
-    });
+    })
 
     if (error) {
-      console.error("Resend error:", error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      console.error("Resend error:", error)
+      return NextResponse.json({ error: "Could not send your message. Please email me directly." }, { status: 502 })
     }
 
-    return NextResponse.json({ success: true, id: data?.id }, { status: 200 });
+    return NextResponse.json({ success: true, id: data?.id })
   } catch (err) {
-    console.error("Unexpected error:", err);
-    return NextResponse.json(
-      { error: "Something went wrong. Please try again." },
-      { status: 500 }
-    );
+    console.error("Unexpected error:", err)
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 })
   }
 }
