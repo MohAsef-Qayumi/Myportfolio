@@ -4,7 +4,8 @@ export const profile = {
   role: "Software Engineer",
   tagline:
     "I build full-stack web products, cross-platform mobile apps, and the occasional machine learning tool — with a bias toward shipping things people actually use.",
-  location: "Kabul, Afghanistan",
+  location: "Islamabad, Pakistan",
+  hometown: "Herat, Afghanistan",
   email: "asef.qayumi0747@gmail.com",
   phone: "+93 747 684 440",
   resume: "/resume.pdf",

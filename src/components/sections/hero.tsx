@@ -58,7 +58,7 @@ export function Hero() {
             priority
             className="aspect-[4/5] w-full rounded-lg border border-line object-cover grayscale-[20%]"
           />
-          <p className="mt-3 font-mono text-[11px] text-muted">{profile.location}</p>
+          <p className="mt-3 font-mono text-[11px] text-muted">Based in {profile.location} · From {profile.hometown}</p>
         </div>
       </div>
     </section>
