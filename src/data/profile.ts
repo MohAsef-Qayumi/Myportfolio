@@ -108,6 +108,24 @@ export type Project = {
 // Ordered by relevance. Add `repo` / `live` links as soon as they are public.
 export const projects: Project[] = [
   {
+    title: "Tarjuman — Classical Arabic Translator",
+    summary: "Translate passages from Shamela and other Islamic libraries while you read, in the browser or over any desktop app.",
+    problem:
+      "Readers who aren't fluent in Arabic can't use classical Islamic libraries, and general translators mangle hadith and fiqh terminology.",
+    highlights: [
+      "Glossary-aware prompts for hadith, fiqh and usul; schema-validated model output",
+      "Provider chain with per-provider cooldowns and Retry-After handling, stacking free tiers",
+      "Browser extension in a shadow DOM with a paragraph picker and tap-a-word root lookup",
+      "Electron app with a non-focusing floating bubble and global shortcut that reads any app's selection",
+      "Monorepo with shared core and UI packages; end-to-end tests drive the real extension and desktop app",
+    ],
+    stack: ["TypeScript", "Next.js", "Electron", "Chrome Extensions", "LLM APIs", "Playwright"],
+    status: "shipped",
+    year: "2026",
+    repo: "https://github.com/MohAsef-Qayumi/Tarjuman",
+    live: "https://tarjuman-xi.vercel.app",
+  },
+  {
     title: "Sehat — Offline-first Clinic Records",
     summary: "Patient records, visits, prescriptions and a daily queue for small clinics — fully usable without internet.",
     problem:
