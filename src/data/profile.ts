@@ -1,9 +1,10 @@
 export const profile = {
   name: "Mohammad Asef Qayumi",
   shortName: "Asef Qayumi",
-  role: "Software Engineer",
+  role: "Full-Stack Software Engineer",
+  availability: "Available for remote roles & select projects",
   tagline:
-    "I build full-stack web products, cross-platform mobile apps, and the occasional machine learning tool — with a bias toward shipping things people actually use.",
+    "I design and ship products end to end — offline-first web apps, desktop and mobile clients, and practical AI features — from the data model to production.",
   location: "Islamabad, Pakistan",
   hometown: "Herat, Afghanistan",
   email: "asef.qayumi0747@gmail.com",

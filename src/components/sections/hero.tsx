@@ -12,7 +12,7 @@ export function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:hidden" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
             </span>
-            Open to internships & freelance work
+            {profile.availability}
           </p>
 
           <h1 className="text-4xl font-semibold leading-[1.05] tracking-tightest sm:text-6xl">
