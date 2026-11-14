@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
 import { Section } from "@/components/section"
 import { projects, profile, type Project } from "@/data/profile"
@@ -34,6 +35,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
         <div className="flex items-baseline gap-3 font-mono text-xs text-muted">
           <span>{String(index).padStart(2, "0")}</span>
           <span>{project.year}</span>
+          {project.label && <span className="rounded bg-accent/10 px-1.5 py-0.5 text-accent">{project.label}</span>}
           {project.status === "in-progress" && (
             <span className="rounded bg-accent/10 px-1.5 py-0.5 text-accent">In progress</span>
           )}
@@ -55,6 +57,31 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                 <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
             ))}
+          </div>
+        )}
+
+        {project.images && (
+          <div className="mt-6 flex items-end gap-3">
+            {project.images.web && (
+              <Image
+                src={project.images.web}
+                alt={`${project.title} on desktop`}
+                width={1440}
+                height={900}
+                sizes="(min-width: 1024px) 360px, 70vw"
+                className="min-w-0 flex-1 rounded-md border border-line"
+              />
+            )}
+            {project.images.mobile && (
+              <Image
+                src={project.images.mobile}
+                alt={`${project.title} on a phone`}
+                width={780}
+                height={1688}
+                sizes="96px"
+                className="w-20 shrink-0 rounded-md border border-line sm:w-24"
+              />
+            )}
           </div>
         )}
       </div>

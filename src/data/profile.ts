@@ -145,10 +145,32 @@ export type Project = {
   year: string
   repo?: string
   live?: string
+  /** Shown as a small label, e.g. for work built for a client. */
+  label?: string
+  /** Screenshots in /public/projects. */
+  images?: { web?: string; mobile?: string }
 }
 
 // Ordered by relevance. Add `repo` / `live` links as soon as they are public.
 export const projects: Project[] = [
+  {
+    title: "AsanBazar — Classifieds Marketplace",
+    summary: "Afghanistan's free online marketplace for buying, selling, jobs and services, on the web and as mobile apps.",
+    problem:
+      "People across Afghanistan had no simple, local-language place to post and find listings by province and district.",
+    highlights: [
+      "Listings across 14 categories with province, district and subcategory filters",
+      "Featured listings, favourites, user accounts and a post-listing flow",
+      "Multilingual interface with right-to-left support",
+      "Installable web app with push notifications, plus Android and iOS apps",
+    ],
+    stack: ["React", "Vite", "Supabase", "i18next", "Cloudflare"],
+    status: "shipped",
+    year: "2026",
+    label: "Client project",
+    live: "https://asanbazar.net",
+    images: { web: "/projects/asanbazar-web.jpg", mobile: "/projects/asanbazar-mobile.jpg" },
+  },
   {
     title: "Tarjuman — Classical Arabic Translator",
     summary: "Translate passages from Shamela and other Islamic libraries while you read, in the browser or over any desktop app.",
