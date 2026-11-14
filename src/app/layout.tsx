@@ -8,7 +8,18 @@ const sans = Geist({ subsets: ["latin"], variable: "--font-sans" })
 const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" })
 
 const description =
-  "Software engineer building full-stack web products, Flutter apps and practical ML tools."
+  "Full-stack web and mobile developer and AI engineer. I build web applications, Flutter apps and AI automation, from data model to production."
+
+// Structured data so search engines and recruiter tools read the profile correctly.
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  jobTitle: profile.role,
+  email: `mailto:${profile.email}`,
+  address: { "@type": "PostalAddress", addressLocality: "Islamabad", addressCountry: "PK" },
+  sameAs: Object.values(profile.socials),
+}
 
 export const metadata: Metadata = {
   title: `${profile.name} — ${profile.role}`,
@@ -36,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* Applies the saved theme before paint to avoid a light/dark flash. */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
       </head>
       <body className="font-sans">
         <ThemeProvider>{children}</ThemeProvider>
