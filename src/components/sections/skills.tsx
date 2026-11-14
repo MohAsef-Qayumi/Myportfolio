@@ -3,7 +3,7 @@ import { skills } from "@/data/profile"
 
 export function Skills() {
   return (
-    <Section id="skills" index="04" title="Toolbox">
+    <Section id="skills" index="05" title="Toolbox">
       <dl className="divide-y divide-line border-y border-line">
         {skills.map(({ group, items }) => (
           <div key={group} className="grid gap-2 py-4 sm:grid-cols-[150px_1fr] sm:gap-8">

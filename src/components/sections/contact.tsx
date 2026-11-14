@@ -41,7 +41,7 @@ export function Contact() {
   }
 
   return (
-    <Section id="contact" index="05" title="Contact">
+    <Section id="contact" index="06" title="Contact">
       <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
         <div>
           <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Let&apos;s build something.</h2>

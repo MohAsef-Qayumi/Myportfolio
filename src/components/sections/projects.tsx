@@ -4,7 +4,7 @@ import { projects, profile, type Project } from "@/data/profile"
 
 export function Projects() {
   return (
-    <Section id="projects" index="02" title="Selected work">
+    <Section id="projects" index="03" title="Selected work">
       <ol className="divide-y divide-line border-y border-line">
         {projects.map((project, i) => (
           <ProjectRow key={project.title} project={project} index={i + 1} />

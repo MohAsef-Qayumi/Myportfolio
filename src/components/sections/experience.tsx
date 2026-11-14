@@ -3,7 +3,7 @@ import { experience } from "@/data/profile"
 
 export function Experience() {
   return (
-    <Section id="experience" index="03" title="Experience">
+    <Section id="experience" index="04" title="Experience">
       <ol className="space-y-12">
         {experience.map((job) => (
           <li key={`${job.company}-${job.period}`} className="grid gap-2 sm:grid-cols-[150px_1fr] sm:gap-8">

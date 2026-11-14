@@ -1,7 +1,7 @@
 export const profile = {
   name: "Mohammad Asef Qayumi",
   shortName: "Asef Qayumi",
-  role: "Full-Stack Software Engineer",
+  role: "Full-Stack Web & Mobile Developer · AI Engineer",
   availability: "Available for remote roles & select projects",
   tagline:
     "I design and ship products end to end — offline-first web apps, desktop and mobile clients, and practical AI features — from the data model to production.",
@@ -21,6 +21,47 @@ export const profile = {
 export const about = [
   "I'm a software engineer and an Artificial Intelligence undergraduate at NUST, Islamabad. I started out building websites for local businesses in Herat, moved into Flutter for mobile clients, and have since worked on React frontends and Java/Spring backends with remote teams.",
   "Most of my work sits where product and engineering meet: understanding what a user is trying to do, designing a data model that won't fight back later, and keeping the interface fast and obvious. Lately I've been focused on applying ML in practical, small-scope tools rather than demos.",
+]
+
+export type Service = {
+  title: string
+  summary: string
+  deliverables: string[]
+  stack: string[]
+}
+
+// What I can be hired for. Each maps to a kind of role or freelance engagement.
+export const services: Service[] = [
+  {
+    title: "Web applications",
+    summary: "Full-stack products from data model to deployment.",
+    deliverables: [
+      "React and Next.js frontends with accessible, responsive UI",
+      "Node.js and Express APIs, authentication and role-based access",
+      "Database design, third-party integrations and Stripe payments",
+    ],
+    stack: ["React", "Next.js", "Node.js", "PostgreSQL", "MongoDB", "Stripe"],
+  },
+  {
+    title: "Mobile & desktop apps",
+    summary: "Cross-platform clients that keep working on poor connections.",
+    deliverables: [
+      "Flutter apps for Android and iOS with Firebase",
+      "Offline-first storage and background sync",
+      "Desktop apps and browser extensions",
+    ],
+    stack: ["Flutter", "Dart", "Firebase", "Electron"],
+  },
+  {
+    title: "AI & automation",
+    summary: "Practical AI features and workflows that remove manual work.",
+    deliverables: [
+      "LLM features with validated output and provider failover",
+      "AI agents and workflow automation with n8n",
+      "Classical ML models and evaluation tooling",
+    ],
+    stack: ["LLM APIs", "n8n", "Python", "scikit-learn"],
+  },
 ]
 
 export type Experience = {
@@ -193,9 +234,9 @@ export const projects: Project[] = [
 export const skills: { group: string; items: string[] }[] = [
   { group: "Languages", items: ["TypeScript", "JavaScript", "Python", "Java", "Dart", "SQL", "C++"] },
   { group: "Frontend", items: ["React", "Next.js", "Tailwind CSS", "HTML & CSS"] },
-  { group: "Backend", items: ["Node.js", "Express", "Spring", "Hibernate", "REST APIs"] },
+  { group: "Backend", items: ["Node.js", "Express", "Spring", "Hibernate", "REST APIs", "Stripe"] },
   { group: "Data", items: ["MongoDB", "PostgreSQL", "Firebase / Firestore"] },
   { group: "Mobile", items: ["Flutter", "Firebase Auth", "Push notifications"] },
-  { group: "ML", items: ["scikit-learn", "pandas", "Streamlit", "TensorFlow"] },
-  { group: "Tooling", items: ["Git", "AWS", "Vercel", "Postman", "Figma"] },
+  { group: "AI & ML", items: ["LLM APIs", "n8n", "scikit-learn", "pandas", "Streamlit", "TensorFlow"] },
+  { group: "Tooling", items: ["Git", "GitHub Actions", "AWS", "Vercel", "Postman", "Figma"] },
 ]

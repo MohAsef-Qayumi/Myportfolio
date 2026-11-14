@@ -24,7 +24,7 @@ export function About() {
         ))}
         <div>
           <dt className="eyebrow mb-2">Focus</dt>
-          <dd className="text-sm text-muted">Full-stack web, mobile, applied ML</dd>
+          <dd className="text-sm text-muted">Full-stack web, mobile, AI & automation</dd>
         </div>
         <div>
           <dt className="eyebrow mb-2">Works best in</dt>
