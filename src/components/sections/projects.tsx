@@ -72,16 +72,17 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                 className="min-w-0 flex-1 rounded-md border border-line"
               />
             )}
-            {project.images.mobile && (
+            {project.images.mobile?.map((src) => (
               <Image
-                src={project.images.mobile}
-                alt={`${project.title} on a phone`}
-                width={780}
-                height={1688}
+                key={src}
+                src={src}
+                alt={`${project.title} mobile app`}
+                width={720}
+                height={1460}
                 sizes="96px"
-                className="w-20 shrink-0 rounded-md border border-line sm:w-24"
+                className="w-16 shrink-0 rounded-md border border-line sm:w-20"
               />
-            )}
+            ))}
           </div>
         )}
       </div>
